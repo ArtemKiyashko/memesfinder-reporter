@@ -23,7 +23,6 @@ namespace MemesFinderReporter
                 .Build();
 
             builder.Services.Configure<TelegramBotOptions>(_functionConfig.GetSection("TelegramBotOptions"));
-            builder.Services.Configure<ReporterOptions>(_functionConfig.GetSection("ReporterOptions"));
 
             builder.Services.AddAzureClients(clientBuilder =>
             {
@@ -31,7 +30,7 @@ namespace MemesFinderReporter
                 clientBuilder.AddClient<LogsQueryClient, LogsQueryClientOptions>((options, credentials) => new LogsQueryClient(credentials, options));
             });
 
-            builder.Services.AddWeeklyReports();
+            builder.Services.AddReports(_functionConfig);
 
             builder.Services.AddLogging();
         }

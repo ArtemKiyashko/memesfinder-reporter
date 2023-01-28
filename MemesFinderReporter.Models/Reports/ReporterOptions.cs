@@ -1,5 +1,5 @@
 ﻿using System;
-namespace MemesFinderReporter.Options
+namespace MemesFinderReporter.Models.Reports
 {
 	public class ReporterOptions
 	{

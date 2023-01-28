@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using MemesFinderReporter.Interfaces.Reports;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
@@ -8,21 +9,23 @@ namespace MemesFinderReporter
 {
     public class WeeklyReporter
     {
-        private readonly IReportProvider<IWeeklyReport> _weeklyReportProvider;
+        private readonly IReportManager<IWeeklyReport> _weeklyReportManager;
 
-        public WeeklyReporter(IReportProvider<IWeeklyReport> weeklyReportProvider)
+        public WeeklyReporter(IReportManager<IWeeklyReport> weeklyReportManager)
         {
-            _weeklyReportProvider = weeklyReportProvider;
+            _weeklyReportManager = weeklyReportManager;
         }
 
         [FunctionName("weeklyreports")]
-        public void RunWeeklyReports([TimerTrigger("0 0 19 * * 0",
+        public async Task RunWeeklyReports([TimerTrigger("0 0 19 * * 0",
         #if DEBUG
             RunOnStartup = true
         #endif
             )]TimerInfo myTimer, ILogger log)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
+
+            var r = await _weeklyReportManager.GetReportsResults();
         }
     }
 }

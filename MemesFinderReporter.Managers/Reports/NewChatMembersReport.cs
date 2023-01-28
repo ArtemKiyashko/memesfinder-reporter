@@ -1,4 +1,5 @@
 ﻿using System;
+using Azure.Monitor.Query.Models;
 using MemesFinderReporter.Interfaces.Reports;
 
 namespace MemesFinderReporter.Managers.Reports
@@ -9,7 +10,12 @@ namespace MemesFinderReporter.Managers.Reports
 		{
 		}
 
-        public Uri GetReportPictureUri()
+        public Uri GetReportPictureUri(LogsQueryResult logsQueryResult)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetReportQuery(long chatId)
         {
             throw new NotImplementedException();
         }
