@@ -16,7 +16,11 @@ namespace MemesFinderReporter
         }
 
         [FunctionName("weeklyreports")]
-        public void RunWeeklyReports([TimerTrigger("0 */5 * * * *", RunOnStartup = true)]TimerInfo myTimer, ILogger log)
+        public void RunWeeklyReports([TimerTrigger("0 0 19 * * 0",
+        #if DEBUG
+            RunOnStartup = true
+        #endif
+            )]TimerInfo myTimer, ILogger log)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
         }
