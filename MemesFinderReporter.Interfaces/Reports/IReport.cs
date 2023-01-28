@@ -1,0 +1,8 @@
+﻿using System;
+namespace MemesFinderReporter.Interfaces.Reports
+{
+	public interface IReport
+	{
+	}
+}
+
