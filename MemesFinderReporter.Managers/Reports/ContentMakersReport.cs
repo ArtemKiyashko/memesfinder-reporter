@@ -26,17 +26,16 @@ namespace MemesFinderReporter.Managers.Reports
             return new Uri(chart.toURL());
         }
 
-        public string GetReportQuery(long chatId) => @$"let productionChatId = ""{chatId}"";
+        public string GetReportQuery(long chatId) => @$"let chatId = ""{chatId}"";
             AppTraces
             | where ((OperationName == ""MemesFinderGateway""))
             | where Message startswith ""Update received: ""
             | extend tgUpdate = parse_json(replace_string(Message, ""Update received: "", """"))
-            | where tostring(tgUpdate.message) != """" and tostring(tgUpdate.message.chat.id) == productionChatId
+            | where tostring(tgUpdate.message) != """" and tostring(tgUpdate.message.chat.id) == chatId
             | extend TgUser = tgUpdate.message.from.username
             | extend TgName = tgUpdate.message.from.first_name
             | extend TgSurname = tgUpdate.message.from.last_name
-            | summarize Count = count() by strcat(tostring(TgUser), "" "", tostring(TgName), "" "", tostring(TgSurname))
-            | render piechart";
+            | summarize Count = count() by strcat(tostring(TgUser), "" "", tostring(TgName), "" "", tostring(TgSurname))";
 
         public string GetReportText() => "Топ-10 контент-мейкеров\n\n#reports";
 

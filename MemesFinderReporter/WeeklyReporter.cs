@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using MemesFinderReporter.Interfaces.Reports;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 
 namespace MemesFinderReporter
@@ -17,7 +16,7 @@ namespace MemesFinderReporter
         }
 
         [FunctionName("weeklyreports")]
-        public async Task RunWeeklyReports([TimerTrigger("0 0 19 * * 0",
+        public async Task RunWeeklyReports([TimerTrigger("%WeeklyReporterSchedule%",
         #if DEBUG
             RunOnStartup = true
         #endif
