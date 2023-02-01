@@ -23,9 +23,8 @@ namespace MemesFinderReporter.Managers.Reports
                 .chbr("8")
                 .chxt("x,y")
                 .chma("0,0,10,10")
-                .chg("20,20")
+                .chg("0,20,0,0,0,0,646464")
                 .chxs("0,FFFFFF,20|1,FFFFFF,20")
-                .chxr($"1,0,{logsQueryResult.Table.Rows.Max(r => r.GetInt32(1)).Value.RoundUpTo(100)}")
                 .chdl("New messages|Edited messages")
                 .chd($"a:{logsQueryResult.Table.Rows.Select(r => r.GetInt32(1).ToString()).Aggregate((f, s) => $"{f},{s}")}|{logsQueryResult.Table.Rows.Select(r => r.GetInt32(2).ToString()).Aggregate((f, s) => $"{f},{s}")}")
                 .chxl($"0:|{logsQueryResult.Table.Rows.Select(r => r.GetDateTimeOffset(0).Value.ToString("ddd", new CultureInfo("ru-RU"))).Aggregate((f, s) => $"{f}|{s}")}");

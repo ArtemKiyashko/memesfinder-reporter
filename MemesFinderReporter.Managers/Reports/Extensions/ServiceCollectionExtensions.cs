@@ -16,7 +16,7 @@ namespace MemesFinderReporter.Managers.Reports.Extensions
             services.AddTransient<IReportManager<IWeeklyReport>, WeeklyReportManager>();
             services.AddTransient<IWeeklyReport, ContentMakersReport>();
             services.AddTransient<IWeeklyReport, MessagesByDaysReport>();
-            //services.AddTransient<IWeeklyReport, NewChatMembersReport>();
+            services.AddTransient<IWeeklyReport, NewChatMembersReport>();
 
             services.AddAzureClients(clientBuilder =>
             {
