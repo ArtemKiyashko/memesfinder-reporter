@@ -1,6 +1,4 @@
-﻿using System;
-using Azure.Core;
-using Azure.Identity;
+﻿using Azure.Identity;
 using Azure.Monitor.Query;
 using MemesFinderReporter.Managers.Reports.Extensions;
 using MemesFinderReporter.Options;
@@ -8,6 +6,8 @@ using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Telegram.Bot;
 
 [assembly: FunctionsStartup(typeof(MemesFinderReporter.Startup))]
 namespace MemesFinderReporter
@@ -23,6 +23,7 @@ namespace MemesFinderReporter
                 .Build();
 
             builder.Services.Configure<TelegramBotOptions>(_functionConfig.GetSection("TelegramBotOptions"));
+            builder.Services.AddSingleton<ITelegramBotClient>(factory => new TelegramBotClient(factory.GetService<IOptions<TelegramBotOptions>>().Value.Token));
 
             builder.Services.AddAzureClients(clientBuilder =>
             {

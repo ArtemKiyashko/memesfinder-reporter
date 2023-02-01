@@ -39,7 +39,8 @@ namespace MemesFinderReporter.Managers.Reports
             | summarize Count = count() by bin(TimeGenerated, 1d)
             | order by TimeGenerated asc";
 
-        public string GetReportText() => "Пользователей присоединилось\n\n#reports";
+        public string GetReportText(TimeSpan reportPeriod)
+            => $"Пользователей присоединилось\n\n#reports\n\n{DateTime.Now.Add(-reportPeriod).ToShortDateString()} - {DateTime.Now.ToShortDateString()}";
     }
 }
 

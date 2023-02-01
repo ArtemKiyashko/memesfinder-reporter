@@ -14,6 +14,7 @@ namespace MemesFinderReporter.Managers.Reports
         private readonly ILogger<WeeklyReportManager> _logger;
         private readonly ReporterOptions _options;
         private readonly LogsQueryClient _logsQueryClient;
+        private readonly TimeSpan REPORT_PERIOD = TimeSpan.FromDays(7);
 
         public WeeklyReportManager(
             IEnumerable<IWeeklyReport> weeklyReports,
@@ -45,13 +46,13 @@ namespace MemesFinderReporter.Managers.Reports
                 var logResult = await _logsQueryClient.QueryWorkspaceAsync(
                                 workspaceId: _options.WorkspaceId,
                                 query: report.GetReportQuery(chat.ChatId),
-                                timeRange: new QueryTimeRange(TimeSpan.FromDays(7)));
+                                timeRange: new QueryTimeRange(REPORT_PERIOD));
 
                 if (logResult.Value.Error is not null) throw new ArgumentException(logResult.Value.Error.Message);
 
                 result.Add(new Report(
                     report.GetReportPictureUri(logResult.Value),
-                    report.GetReportText(),
+                    report.GetReportText(REPORT_PERIOD),
                     chat.ChatId,
                     chat.ReportsThreadId));
             }

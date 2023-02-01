@@ -41,7 +41,8 @@ namespace MemesFinderReporter.Managers.Reports
             | summarize NewMessageCount = countif(tostring(tgUpdate.message) != """"), EditedMessageCount = countif(tostring(tgUpdate.edited_message) != """") by bin(TimeGenerated, 1d)
             | order by TimeGenerated asc";
 
-        public string GetReportText() => "Количество сообщений по дням\n\n#reports";
+        public string GetReportText(TimeSpan reportPeriod)
+            => $"Количество сообщений по дням\n\n#reports\n\n{DateTime.Now.Add(-reportPeriod).ToShortDateString()} - {DateTime.Now.ToShortDateString()}";
     }
 }
 

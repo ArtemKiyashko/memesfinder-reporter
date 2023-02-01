@@ -38,7 +38,8 @@ namespace MemesFinderReporter.Managers.Reports
             | extend TgSurname = tgUpdate.message.from.last_name
             | summarize Count = count() by strcat(tostring(TgUser), "" "", tostring(TgName), "" "", tostring(TgSurname))";
 
-        public string GetReportText() => "Топ-10 контент-мейкеров\n\n#reports";
+        public string GetReportText(TimeSpan reportPeriod)
+            => $"Топ-10 контент-мейкеров\n\n#reports\n\n{DateTime.Now.Add(-reportPeriod).ToShortDateString()} - {DateTime.Now.ToShortDateString()}";
 
         private IDictionary<string, (decimal Percent, int Value)> CalculateTopResults(LogsQueryResult logsQueryResult)
         {
