@@ -26,7 +26,8 @@ namespace MemesFinderReporter.Managers.Reports
                 .chg("20,20")
                 .chxs("0,FFFFFF,20|1,FFFFFF,20")
                 .chxr($"1,0,{logsQueryResult.Table.Rows.Max(r => r.GetInt32(1)).Value.RoundUpTo(100)}")
-                .chd($"a:{logsQueryResult.Table.Rows.Select(r => r.GetInt32(1).ToString()).Aggregate((f, s) => $"{f},{s}")}")
+                .chdl("New messages|Edited messages")
+                .chd($"a:{logsQueryResult.Table.Rows.Select(r => r.GetInt32(1).ToString()).Aggregate((f, s) => $"{f},{s}")}|{logsQueryResult.Table.Rows.Select(r => r.GetInt32(2).ToString()).Aggregate((f, s) => $"{f},{s}")}")
                 .chxl($"0:|{logsQueryResult.Table.Rows.Select(r => r.GetDateTimeOffset(0).Value.ToString("ddd", new CultureInfo("ru-RU"))).Aggregate((f, s) => $"{f}|{s}")}");
 
             return new Uri(chart.toURL());
@@ -37,8 +38,8 @@ namespace MemesFinderReporter.Managers.Reports
             | where ((OperationName == ""MemesFinderGateway""))
             | where Message startswith ""Update received: ""
             | extend tgUpdate = parse_json(replace_string(Message, ""Update received: "", """"))
-            | where (tostring(tgUpdate.message) != """" and tostring(tgUpdate.message.chat.id) == chatId)
-            | summarize Count = count() by bin(TimeGenerated, 1d)
+            | where ((tostring(tgUpdate.message) != """" or tostring(tgUpdate.edited_message) != """") and (tostring(tgUpdate.message.chat.id) == chatId or tostring(tgUpdate.edited_message.chat.id) == chatId))
+            | summarize NewMessageCount = countif(tostring(tgUpdate.message) != """"), EditedMessageCount = countif(tostring(tgUpdate.edited_message) != """") by bin(TimeGenerated, 1d)
             | order by TimeGenerated asc";
 
         public string GetReportText() => "Количество сообщений по дням\n\n#reports";
