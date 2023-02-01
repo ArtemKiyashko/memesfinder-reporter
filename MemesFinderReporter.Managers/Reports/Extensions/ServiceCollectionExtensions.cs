@@ -14,7 +14,7 @@ namespace MemesFinderReporter.Managers.Reports.Extensions
         public static IServiceCollection AddReports(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddTransient<IReportManager<IWeeklyReport>, WeeklyReportManager>();
-            //services.AddTransient<IWeeklyReport, ContentMakersReport>();
+            services.AddTransient<IWeeklyReport, ContentMakersReport>();
             services.AddTransient<IWeeklyReport, MessagesByDaysReport>();
             //services.AddTransient<IWeeklyReport, NewChatMembersReport>();
 

@@ -16,10 +16,11 @@ namespace MemesFinderReporter.Managers.Reports
                 .chs("800x600")
                 .chdls("FFFFFF,14")
                 .chf("bg,s,000000")
-                .chlps("font.size,30")
+                .chlps("font.size,14")
                 .chts("FFFFFF,30")
                 .chtt("Top-10 Content Makers")
-                .chd($"t:{calculationResult.Select(cr => cr.Value.Value.ToString()).Aggregate((f, s) => $"{f},{s}")}")
+                .chco("ee4266,ffd23f,21fa90,57737a,84cae7")
+                .chd($"a:{calculationResult.Select(cr => cr.Value.Value.ToString()).Aggregate((f, s) => $"{f},{s}")}")
                 .chl($"{calculationResult.Select(cr => cr.Value.Percent.ToString("P2")).Aggregate((f, s) => $"{f}|{s}")}")
                 .chdl($"{calculationResult.Select(cr => cr.Key).Aggregate((f, s) => $"{f}|{s}")}");
 
