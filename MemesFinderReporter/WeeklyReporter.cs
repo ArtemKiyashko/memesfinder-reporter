@@ -19,11 +19,7 @@ namespace MemesFinderReporter
         }
 
         [FunctionName("weeklyreports")]
-        public async Task RunWeeklyReports([TimerTrigger("%WeeklyReporterSchedule%",
-        #if DEBUG
-            RunOnStartup = true
-        #endif
-            )]TimerInfo myTimer, ILogger log)
+        public async Task RunWeeklyReports([TimerTrigger("%WeeklyReporterSchedule%")]TimerInfo myTimer, ILogger log)
         {
             var reports = await _weeklyReportManager.GetReportsResults();
 
