@@ -24,8 +24,8 @@ namespace MemesFinderReporter.Managers.Reports
                 .chg("0,20,0,0,0,0,646464")
                 .chxs("0,FFFFFF,20|1,FFFFFF,20")
                 .chco("86deb7")
-                .chd($"a:{logsQueryResult.Table.Rows.Select(r => r.GetInt32(1).ToString()).Aggregate((f, s) => $"{f},{s}")}")
-                .chxl($"0:|{logsQueryResult.Table.Rows.Select(r => r.GetDateTimeOffset(0).Value.ToString("ddd", new CultureInfo("ru-RU"))).Aggregate((f, s) => $"{f}|{s}")}");
+                .chd($"a:{(logsQueryResult.Table.Rows.Any() ? logsQueryResult.Table.Rows.Select(r => r.GetInt32(1).ToString()).Aggregate((f, s) => $"{f},{s}") : "_")}")
+                .chxl($"0:|{(logsQueryResult.Table.Rows.Any() ? logsQueryResult.Table.Rows.Select(r => r.GetDateTimeOffset(0).Value.ToString("ddd", new CultureInfo("ru-RU"))).Aggregate((f, s) => $"{f}|{s}") : "_")}");
 
             return new Uri(chart.toURL());
         }
