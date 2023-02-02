@@ -16,7 +16,6 @@ namespace MemesFinderReporter.Managers.Reports
                 .chs("800x600")
                 .chdls("FFFFFF,14")
                 .chf("bg,s,000000")
-                .chlps("font.size,14")
                 .chts("FFFFFF,30")
                 .chtt("Top-10 Content Makers")
                 .chco("ee4266,ffd23f,21fa90,57737a,84cae7")
