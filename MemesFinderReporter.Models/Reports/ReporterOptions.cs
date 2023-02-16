@@ -3,7 +3,7 @@ namespace MemesFinderReporter.Models.Reports
 {
 	public class ReporterOptions
 	{
-		public ChatOptions[] ChatOptions { get; set; }
+		public List<ChatOptions> ChatOptions { get; set; }
 		public string WorkspaceId { get; set; }
 	}
 }
