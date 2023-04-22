@@ -6,6 +6,7 @@ using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Telegram.Bot;
 
@@ -33,7 +34,10 @@ namespace MemesFinderReporter
 
             builder.Services.AddReports(_functionConfig);
 
-            builder.Services.AddLogging();
+            builder.Services.AddLogging(logBuilder =>
+            {
+                logBuilder.AddConsole();
+            });
         }
     }
 }

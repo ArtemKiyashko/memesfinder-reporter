@@ -10,6 +10,7 @@
     <PackageReference Include="Azure.Monitor.Query" Version="1.1.0" />
     <PackageReference Include="Telegram.Bot" Version="19.0.0-preview.2" />
     <PackageReference Include="Microsoft.Extensions.Azure" Version="1.6.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Microsoft.Azure.Functions.Extensions" />
