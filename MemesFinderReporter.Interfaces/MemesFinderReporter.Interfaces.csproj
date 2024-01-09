@@ -14,7 +14,7 @@
     <Folder Include="Reports\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Azure.Monitor.Query" Version="1.1.0" />
+    <PackageReference Include="Azure.Monitor.Query" Version="1.2.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MemesFinderReporter.Models\MemesFinderReporter.Models.csproj" />
