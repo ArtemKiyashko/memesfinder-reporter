@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MemesFinderReporter.Interfaces.Reports;
-using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -18,8 +18,8 @@ namespace MemesFinderReporter
             _telegramBotClient = telegramBotClient;
         }
 
-        [FunctionName("weeklyreports")]
-        public async Task RunWeeklyReports([TimerTrigger("%WeeklyReporterSchedule%")]TimerInfo myTimer, ILogger log)
+        [Function("weeklyreports")]
+        public async Task RunWeeklyReports([TimerTrigger("%WeeklyReporterSchedule%")] TimerInfo myTimer)
         {
             var reports = await _weeklyReportManager.GetReportsResults();
 
