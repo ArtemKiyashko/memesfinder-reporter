@@ -71,7 +71,7 @@
       "type": "func",
       "dependsOn": "build (functions)",
       "options": {
-        "cwd": "${workspaceFolder}/MemesFinderReporter/bin/Debug/net6.0"
+        "cwd": "${workspaceFolder}/MemesFinderReporter/bin/Debug/net10.0"
       },
       "command": "host start",
       "args": [

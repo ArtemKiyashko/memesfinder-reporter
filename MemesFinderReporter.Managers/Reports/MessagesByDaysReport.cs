@@ -34,9 +34,8 @@ namespace MemesFinderReporter.Managers.Reports
 
         public string GetReportQuery(long chatId) => $@"let chatId = ""{chatId}"";
             AppTraces
-            | where ((OperationName == ""MemesFinderGateway""))
-            | where Message startswith ""Update received: ""
-            | extend tgUpdate = parse_json(replace_string(Message, ""Update received: "", """"))
+            | where isnotempty(tostring(Properties.TelegramUpdate))
+            | extend tgUpdate = parse_json(tostring(Properties.TelegramUpdate))
             | where ((tostring(tgUpdate.message) != """" or tostring(tgUpdate.edited_message) != """") and (tostring(tgUpdate.message.chat.id) == chatId or tostring(tgUpdate.edited_message.chat.id) == chatId))
             | summarize NewMessageCount = countif(tostring(tgUpdate.message) != """"), EditedMessageCount = countif(tostring(tgUpdate.edited_message) != """") by bin(TimeGenerated, 1d)
             | order by TimeGenerated asc";
